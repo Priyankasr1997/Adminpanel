@@ -36,7 +36,7 @@ class Test_003_CreateOffer:
         self.offer = CreateOffer(self.driver)
         self.offer.clickOnCreateOffer()
         time.sleep(5)
-
+     #####CHECK
     ##Client company field
 
         element = setup.find_element(By.XPATH, "//input[@placeholder='Client Company']")
