@@ -47,5 +47,5 @@ if checkbox.is_enabled():
         if multiple_redem_radio.is_selected():
             # Click on the radio button for single redemption per person
             single_redem_radio = driver.find_element(By.XPATH, "/input[@name='limitation'][2]")
-            single_redem_radio.click()
+            single_redem_radio.click()     ####save
 
