@@ -1,5 +1,7 @@
 from selenium import webdriver
 import pytest
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)  # browser will not automatically close
 
 # Browser setup fixture
 @pytest.fixture
@@ -42,7 +44,9 @@ def pytest_metadata(metadata):
     print("pytest_metadata called, metadata modified.")
 
 # Fixture to keep the browser open after test execution
-@pytest.fixture(scope="function", autouse=True)
-def keep_browser_open():
-    yield
-    input("Press any key to close the browser window...")
+#
+#@pytest.fixture(scope="function", autouse=True)
+#def keep_browser_open():
+ #   yield
+  #  input("Press any key to close the browser window...")
+#options.add_experimental_option("detach", True)  # browser will not automatically close

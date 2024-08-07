@@ -4,7 +4,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)  # browser will not automatically close
+#options.add_experimental_option("detach", True)  # browser will not automatically close
 
 class CreateOffer:
     #adding all the locatores for the create offer page
