@@ -15,11 +15,17 @@ class Receipt:
     approvedrpdwn_xpath = "//li[@data-value='APPROVED']"   # approve
     rejectdrpdwn_xpath = "//li[@data-value='REJECTED']"   # reject
 
-    currenctdrpdwn_xath = "//div[@id='standard-select-currency']"    #Currency dropdow
+    currenctdrpdwn_Id = "standard-select-currency"  ##//div[@id='standard-select-currency']"    #Currency dropdow
     SEKcurrency_xpath = "//li[@data-value='SEK']"
     EURcurrency_xpath = "//li[@data-value='EUR']"
     DKKcurrency_xpath = "//li[@data-value='DOK']"
     NOKcurrency_xpath = "//li[@data-value='NOR']"
+
+    ####add offer manually
+    Addoffer_xpath = "//button[normalize-space()='ADD OFFER']"
+
+
+
     Savereceipt_xpath = "//p[text()='SAVE']"                  # Save receipt
 
 
@@ -33,5 +39,32 @@ class Receipt:
 
     def clickonreceipt(self):
         self.driver.find_element(By.XPATH, self.slcreceiptfromlist_xpath).click()
+
+    def clickOnpendingdrpdwn(self):
+        self.driver.find_element(By.XPATH,self.pendingdrpdwn_xpath).click()
+
+    def clickOnApproved(self):
+        self.driver.find_element(By.XPATH, self.approvedrpdwn_xpath).click()
+
+    def clicOnCurrencydrpdwn(self):
+        self.driver.find_element(By.ID, self.currenctdrpdwn_Id).click()
+    def clickOnSEK(self):
+        self.driver.find_element(By.XPATH, self.SEKcurrency_xpath).click()
+
+    def clickOnSave(self):
+        self.driver.find_element(By.XPATH, self.Savereceipt_xpath).click()
+
+    def clickOnAddoffer(self):
+        self.driver.find_element(By.XPATH, self.Addoffer_xpath).click()
+
+
+
+
+
+
+
+
+
+
 
 

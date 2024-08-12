@@ -12,7 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
-
 class Test_003_CreateOffer:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()

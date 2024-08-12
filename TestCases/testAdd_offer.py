@@ -12,14 +12,17 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)  # browser will not automatically close
 
-class Test_005_Receiptreview:
+
+class Test_005_Receipt:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_ReceipReview(self,setup):
+    def test_Addoffer(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -31,17 +34,17 @@ class Test_005_Receiptreview:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        # Clickng on the receipt button
-        self.receipt = Receipt(self.driver)
-        self.receipt.Clickonreceipttab()
+        self.addreceipt = Receipt(self.driver)
+        self.addreceipt.Clickonreceipttab()
+        time.sleep(7)
+
+
+        self.addreceipt = Receipt(self.driver)
+        self.addreceipt.clickonreceipt()
         time.sleep(5)
 
-        self.receipt = Receipt(self.driver)
-        self.receipt.clickonreceipt()
-        # Get the total height of the page
-        total_height = setup.execute_script("return document.body.scrollHeight")
-        # Scroll to the middle of the page
-        middle = total_height / 2
-        setup.execute_script(f"window.scrollTo(0, {middle});")
-        # Optionally, wait for a few seconds to see the result
-        time.sleep(5)
+
+        self.addreceipt = Receipt(self.driver)
+        self.addreceipt.clickOnAddoffer()
+        time.sleep(10)
+

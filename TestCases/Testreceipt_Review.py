@@ -3,7 +3,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from PageObjects.LoginPage import Login
-from PageObjects.DuplicateOffers import Duplicateoffer
+from PageObjects.CreatOffer import CreateOffer
 from Utilities.readProperties import RedConfig
 from Utilities.customLogger import LogGen
 from selenium.webdriver.common.by import By
@@ -11,15 +11,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from PageObjects.Receipts import Receipt
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)  # browser will not automatically close
 
 
-class Test_003_Duplicateoffer:
+class Test_005_Receiptreview:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_dupOffer(self,setup):
+    def test_ReceipReview(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -31,19 +34,33 @@ class Test_003_Duplicateoffer:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
+        # Clickng on the receipt button
+        self.receipt = Receipt(self.driver)
+        self.receipt.Clickonreceipttab()
+        time.sleep(7)
 
-        self.duplicate = Duplicateoffer(self.driver)
-        self.duplicate.clickOnListMenu()
+        self.receipt = Receipt(self.driver)
+        self.receipt.clickonreceipt()
 
-        self.duplicate.clickOnCreateDuplicate()
+        time.sleep(4)
+        self.receipt.clickOnpendingdrpdwn()
+        self.receipt.clickOnApproved()
+
+        self.receipt.clicOnCurrencydrpdwn()
+
+        self.receipt.clickOnSEK()
+        time.sleep(5)
+        self.receipt.clickOnSave()
+        time.sleep(5)
+
+        body = setup.find_element(By.TAG_NAME, 'body')
+        body.send_keys(Keys.CONTROL + Keys.F5)
+        time.sleep(5)
+        self.receipt.clickonreceipt()
+        time.sleep(5)
+        self.receipt.clickOnAddoffer()
+        time.sleep(6)
 
 
-        ##From Date
-        self.duplicate.clickOnFromDate("2024-05-11 00:00")
 
-        ##ToDate
-        self.duplicate.clickOnToDate("2024-05-17 00:00")
-
-        ##To save the offer
-        #self.duplicate.clickOnSave()
 

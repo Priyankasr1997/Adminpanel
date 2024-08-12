@@ -111,6 +111,7 @@ class CreateOffer:
         Stores.click()  # Click on the tags input field
         return Stores
 
+
     def clickOnCountry(self):
         self.driver.find_element(By.XPATH, self.drpdwnCountry_xpath).click()
 
