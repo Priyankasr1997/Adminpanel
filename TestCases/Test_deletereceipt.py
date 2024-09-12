@@ -16,13 +16,13 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
 
 
-class Test_005_Receiptreview:
+class Test_005_Receipt:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_ReceipReview(self,setup):
+    def test_Addoffer(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -34,33 +34,15 @@ class Test_005_Receiptreview:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        # Clickng on the receipt button
-        self.receipt = Receipt(self.driver)
-        self.receipt.Clickonreceipttab()
+        self.deletereceipt = Receipt(self.driver)
+        self.deletereceipt.Clickonreceipttab()
         time.sleep(7)
 
-        self.receipt = Receipt(self.driver)
-        self.receipt.clickonreceipt()
 
-        time.sleep(4)
-        self.receipt.clickOnpendingdrpdwn()
-        self.receipt.clickOnApproved()
-
-        self.receipt.clicOnCurrencydrpdwn()
-
-        self.receipt.clickOnSEK()
+        self.deletereceipt = Receipt(self.driver)
+        self.deletereceipt.clickonreceipt()
         time.sleep(5)
-        self.receipt.clickOnSave()
+        self.deletereceipt.clickondeletereceipt()
         time.sleep(5)
-
-        body = setup.find_element(By.TAG_NAME, 'body')
-        body.send_keys(Keys.CONTROL + Keys.F5)
-        time.sleep(5)
-        self.receipt.clickonreceipt()
-        time.sleep(5)
-        self.receipt.clickOnAddoffer()
-        time.sleep(6)
-
-
-
-
+        self.deletereceipt.clickonconfirmToDeletReceipt()
+        time.sleep(10)

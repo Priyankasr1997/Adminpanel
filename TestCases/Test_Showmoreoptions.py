@@ -22,7 +22,7 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Addoffer(self,setup):
+    def test_Showmore(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -34,31 +34,15 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.Clickonreceipttab()
+        self.showmoreceipt = Receipt(self.driver)
+        self.showmoreceipt.Clickonreceipttab()
         time.sleep(7)
 
 
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickonreceipt()
+        self.showmoreceipt = Receipt(self.driver)
+        self.showmoreceipt.clickonreceipt()
         time.sleep(5)
-
-
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickOnAddoffer()
-        time.sleep(3)
-        self.addreceipt.clickOnAutoSearch()
+        self.showmoreceipt.clickOnReceiptsShowMore()
         time.sleep(5)
-
-        select_firstoffer = setup.find_element(By.XPATH, "(//li[@role='option'])[1]")    # to select the 2nd offer(//li[@role='option'])[2]
-        select_firstoffer.click()
-        time.sleep(4)
-        self.addreceipt.clickOnCashbackField("5")
-        self.addreceipt.clickOnsetstausForAdminOffers()
-        self.addreceipt.clickonApproveforadminoffer()
-        self.addreceipt.clickOnSave()
-
+        self.showmoreceipt.clickOnUserShowMore()
         time.sleep(10)
-
-
-

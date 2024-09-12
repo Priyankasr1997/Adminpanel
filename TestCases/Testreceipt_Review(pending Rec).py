@@ -16,13 +16,13 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
 
 
-class Test_005_Receipt:
+class Test_005_Receiptreview:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Addoffer(self,setup):
+    def test_ReceipReview(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -34,31 +34,25 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.Clickonreceipttab()
+        # Clickng on the receipt button
+        self.receipt = Receipt(self.driver)
+        self.receipt.Clickonreceipttab()
         time.sleep(7)
 
+        self.receipt = Receipt(self.driver)
+        self.receipt.clickonreceipt()
 
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickonreceipt()
-        time.sleep(5)
-
-
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickOnAddoffer()
-        time.sleep(3)
-        self.addreceipt.clickOnAutoSearch()
-        time.sleep(5)
-
-        select_firstoffer = setup.find_element(By.XPATH, "(//li[@role='option'])[1]")    # to select the 2nd offer(//li[@role='option'])[2]
-        select_firstoffer.click()
         time.sleep(4)
-        self.addreceipt.clickOnCashbackField("5")
-        self.addreceipt.clickOnsetstausForAdminOffers()
-        self.addreceipt.clickonApproveforadminoffer()
-        self.addreceipt.clickOnSave()
+        self.receipt.clickOnpendingdrpdwn()
+        self.receipt.clickOnApproved()
 
-        time.sleep(10)
+        self.receipt.clicOnCurrencydrpdwn()
+
+        self.receipt.clickOnSEK()
+        time.sleep(5)
+        self.receipt.clickOnSave()
+        time.sleep(5)
+
 
 
 

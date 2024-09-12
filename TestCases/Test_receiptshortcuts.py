@@ -34,31 +34,12 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.Clickonreceipttab()
-        time.sleep(7)
-
-
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickonreceipt()
-        time.sleep(5)
-
-
-        self.addreceipt = Receipt(self.driver)
-        self.addreceipt.clickOnAddoffer()
-        time.sleep(3)
-        self.addreceipt.clickOnAutoSearch()
-        time.sleep(5)
-
-        select_firstoffer = setup.find_element(By.XPATH, "(//li[@role='option'])[1]")    # to select the 2nd offer(//li[@role='option'])[2]
-        select_firstoffer.click()
+        self.receiptshortcuts = Receipt(self.driver)
+        self.receiptshortcuts.Clickonreceipttab()
         time.sleep(4)
-        self.addreceipt.clickOnCashbackField("5")
-        self.addreceipt.clickOnsetstausForAdminOffers()
-        self.addreceipt.clickonApproveforadminoffer()
-        self.addreceipt.clickOnSave()
-
+        self.receiptshortcuts.clickonreceipt()
+        time.sleep(7)
+        self.receiptshortcuts.clickOnshortcuts()
+        time.sleep(5)
+        self.receiptshortcuts.clickOncloseShortcuts()
         time.sleep(10)
-
-
-
