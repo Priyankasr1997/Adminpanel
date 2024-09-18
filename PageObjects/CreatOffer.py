@@ -26,7 +26,7 @@ class CreateOffer:
     chbUser_redemption_name = "//input[@name='redemptionPersonCheckbox']"  ###User unlimited redemption per person
     rdobtn_multipleredem_perperson = "/input[@name='limitation'][1]"    ##multile redemption per person
     unlimit_total_redem = " //input[@name='redemptionTotalCheckbox']"       ####total unlimited redemption
-    rdobtn_singleredem_perperson = "/input[@name='limitation'][2]" ###single redemption per persion
+    rdobtn_singleredem_perperson = "//input[@name='limitation'][2]" ###single redemption per persion
     txtbudget_name = "budget"
     radiobtnUsereEligible_Multieredem_perReciept = "//input[@name='limitation']"
     radiobtnUsereEligible_Singleredem_perReciept = "(//input[@name='limitation'])[2]"

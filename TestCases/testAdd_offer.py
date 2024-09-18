@@ -34,15 +34,20 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
+        ###click on receipts module
         self.addreceipt = Receipt(self.driver)
         self.addreceipt.Clickonreceipttab()
         time.sleep(7)
 
-
+        ###select areceipt
         self.addreceipt = Receipt(self.driver)
         self.addreceipt.clickonreceipt()
         time.sleep(5)
 
+        ##If receipt is pending
+        #self.addreceipt.clickOnpendingdrpdwn()
+        #self.addreceipt.clickOnRejected()
+        #time.sleep(4)
 
         self.addreceipt = Receipt(self.driver)
         self.addreceipt.clickOnAddoffer()
@@ -50,12 +55,19 @@ class Test_005_Receipt:
         self.addreceipt.clickOnAutoSearch()
         time.sleep(5)
 
+
         select_firstoffer = setup.find_element(By.XPATH, "(//li[@role='option'])[1]")    # to select the 2nd offer(//li[@role='option'])[2]
         select_firstoffer.click()
         time.sleep(4)
         self.addreceipt.clickOnCashbackField("5")
         self.addreceipt.clickOnsetstausForAdminOffers()
         self.addreceipt.clickonApproveforadminoffer()
+
+        ##if currency is missing
+
+        #self.addreceipt.clicOnCurrencydrpdwn()
+        #self.addreceipt.clickOnSEK()
+        #time.sleep(5)
         self.addreceipt.clickOnSave()
 
         time.sleep(10)

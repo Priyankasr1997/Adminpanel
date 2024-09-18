@@ -63,6 +63,9 @@ class Receipt:
     def clickOnApproved(self):
         self.driver.find_element(By.XPATH, self.approvedrpdwn_xpath).click()
 
+    def clickOnRejected(self):
+        self.driver.find_element(By.XPATH, self.rejectdrpdwn_xpath).click()
+
     def clicOnCurrencydrpdwn(self):
         self.driver.find_element(By.ID, self.currenctdrpdwn_Id).click()
     def clickOnSEK(self):

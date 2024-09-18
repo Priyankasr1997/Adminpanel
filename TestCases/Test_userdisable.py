@@ -12,8 +12,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
+from PageObjects.Users import User
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
+
 
 
 class Test_005_Receipt:
@@ -22,7 +24,7 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_shortcuts(self,setup):
+    def test_Disableuser(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -34,12 +36,15 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.receiptshortcuts = Receipt(self.driver)
-        self.receiptshortcuts.Clickonreceipttab()
+        self.userdisable = User(self.driver)
+        self.userdisable.ClickOnUserTab()
         time.sleep(4)
-        self.receiptshortcuts.clickonreceipt()
-        time.sleep(7)
-        self.receiptshortcuts.clickOnshortcuts()
+        self.userdisable.ClickOnuser()
+        time.sleep(6)
+        self.userdisable.clickOnOptions()
+        time.sleep(3)
+        self.userdisable.ClickOndisableUser()
+        time.sleep(3)
+        self.userdisable.DisableConfirmPrompt()
         time.sleep(5)
-        self.receiptshortcuts.clickOncloseShortcuts()
-        time.sleep(10)
+
