@@ -20,7 +20,7 @@ class User:
     ##Disable user
     disableuser_xpath="//ul//li[2]"       ## select disable
     disableconfirmpromt_xpath = "//button[text()='DISABLE ACCOUNT']"   ###confirm or say yes to disable user
-    enableuser_xpath="//button[text()='ENABLE ACCOUNT']"               ###Enable user
+    enableuser_xpath="//button[text()='ENABLE ACCOUNT']"               ###Confiirm promt to Enable user
 
     ##verify User
     verifyuser_xpath ="//ul//li[3]"       ##verify user
@@ -59,6 +59,9 @@ class User:
 
     def DisableConfirmPrompt(self):
         self.driver.find_element(By.XPATH, self.disableconfirmpromt_xpath).click()
+
+    def EnableConfirmPrompt(self):
+        self.driver.find_element(By.XPATH, self.enableuser_xpath).click()
     def ClicOnVerifyUser(self):
         self.driver.find_element(By.XPATH, self.verifyuser_xpath).click()
 

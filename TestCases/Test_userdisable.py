@@ -46,5 +46,6 @@ class Test_005_Receipt:
         self.userdisable.ClickOndisableUser()
         time.sleep(3)
         self.userdisable.DisableConfirmPrompt()
+        #self.userdisable.EnableConfirmPrompt()
         time.sleep(5)
 

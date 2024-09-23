@@ -12,9 +12,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
+from PageObjects.Users import User
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
-
 
 class Test_005_Receipt:
     webURL = RedConfig.getAppUrl()
@@ -22,7 +22,7 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Showmore(self,setup):
+    def test_Verifyuser(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -34,15 +34,5 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.showmoreceipt = Receipt(self.driver)
-        self.showmoreceipt.Clickonreceipttab()
-        time.sleep(7)
-
-
-        self.showmoreceipt = Receipt(self.driver)
-        self.showmoreceipt.clickonreceipt()
-        time.sleep(5)
-        #self.showmoreceipt.clickOnReceiptsShowMore()
-        #time.sleep(5)
-        self.showmoreceipt.clickOnUserShowMore()
-        time.sleep(10)
+        self.userverify = User(self.driver)   ##User is class name in the pageobject
+        self.userverify.ClickOnUserTab()
