@@ -1,3 +1,5 @@
+from re import search
+
 import pytest
 import time
 from selenium import webdriver
@@ -26,6 +28,10 @@ class Test_005_Receipt:
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
+        self.logger.info("Navigating to Login Page")
+
+        # Login action
+
         self.lp = Login(self.driver)
         time.sleep(5)
         self.lp.setUserName(self.username)
@@ -34,5 +40,30 @@ class Test_005_Receipt:
         self.logger.info("******Login successfully******")
         time.sleep(6)
 
-        self.userverify = User(self.driver)   ##User is class name in the pageobject
+        # Verify user action
+        self.userverify = User(self.driver)  # User is class name in the pageobject
         self.userverify.ClickOnUserTab()
+        time.sleep(5)
+        search = self.userverify.ClickOnSearch()
+        search.send_keys("787016")  # 786359 unverified user
+        search.send_keys(Keys.ENTER)
+
+        # Wait for the table to load and locate all matching records
+        records = WebDriverWait(self.driver, 10).until(
+            lambda d: d.find_elements(By.XPATH, "//tr//td[2]")  # Retrieves all matching elements
+        )
+
+        if records:
+            # Click the first record
+            records[0].click()
+            time.sleep(5)
+        else:
+            print("No records found.")
+            time.sleep(15)
+
+        self.userverify.clickOnOptions()
+        time.sleep(6)
+        self.userverify.ClicOnVerifyUser()
+        time.sleep(4)
+        self.userverify.ClickOnVerifyuserConfirmPrompt()
+        time.sleep(10)

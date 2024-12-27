@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
-Serv = Service(r'C:\Users\Priyanka Ramareddy\PycharmProjects\practice\downloads\chromedriver.exe')
+Serv = Service(r'C:\Users\Priyanka Ramareddy\PycharmProjects\Adminpanel\downloads\chromedriver.exe')
 driver = webdriver.Chrome(options=options, service=Serv)
 wait = WebDriverWait(driver, 10)
 # login
