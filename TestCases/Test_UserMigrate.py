@@ -13,10 +13,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
 from PageObjects.Users import User
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
-
 
 class Test_005_Receipt:
     webURL = RedConfig.getAppUrl()
@@ -24,48 +22,52 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Freezeuser(self, setup):
+    def test_Migrateuser(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
         self.logger.info("Navigating to Login Page")
-        time.sleep(4)
 
         # Login action
+
         self.lp = Login(self.driver)
+        time.sleep(5)
         self.lp.setUserName(self.username)
         self.lp.setPassword(self.password)
         self.lp.ClickLogin()
-        self.logger.info("Login successful")
-        time.sleep(5)
+        self.logger.info("******Login successfully******")
+        time.sleep(6)
 
-        # User freeze action
-        self.userfreeze = User(self.driver)
-        self.userfreeze.ClickOnUserTab()
+        # verify migrate user
+        self.usermigrate = User(self.driver)  # User is class name in the pageobject
+        self.usermigrate.ClickOnUserTab()
         time.sleep(5)
-        self.userfreeze.ClickOnuser()
-        time.sleep(5)
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
+        search = self.usermigrate.ClickOnSearch()
+        search.send_keys("787016")  # 786359 unverified user
+        search.send_keys(Keys.ENTER)
+
+        # Wait for the table to load and locate all matching records
+        records = WebDriverWait(self.driver, 10).until(
+            lambda d: d.find_elements(By.XPATH, "//tr//td[2]")  # Retrieves all matching elements
+        )
+
+        if records:
+            # Click the first record
+            records[0].click()
+            time.sleep(5)
+        else:
+            print("No records found.")
+            time.sleep(15)
+
+        self.usermigrate.clickOnOptions()
+        time.sleep(6)
+        self.usermigrate.ClickOnMigrateUser()
         time.sleep(4)
-        self.userfreeze.ConfirmPromt()
+        self.usermigrate.ClickOnCountrydropdown()
+        time.sleep(3)
+        self.usermigrate.ClickOnSelectcountry()
         time.sleep(5)
-
-        self.logger.info("User freeze action completed successfully")
-
-        self.driver.refresh()
-        time.sleep(4)
-
-        # Verify Unfreeze action
-
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
-        time.sleep(3)
-        self.userfreeze.ClickOnUnfreezeUserprompt()
-        time.sleep(3)
-        self.logger.info("Unfreezed successful")
-
-
-
+        self.usermigrate.ClickOnMigrateConfirm()
+        time.sleep(6)
+        self.usermigrate.FinalConfirmPromt()
+        time.sleep(6)

@@ -1,5 +1,3 @@
-from re import search
-
 import pytest
 import time
 from selenium import webdriver

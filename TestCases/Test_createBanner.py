@@ -11,20 +11,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from PageObjects.Receipts import Receipt
 from PageObjects.Users import User
+from PageObjects.FeatureBanners import Banners
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 
 
-class Test_005_Receipt:
+class Test_005_featuredbanners:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Freezeuser(self, setup):
+    def test_Createbanners(self, setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -39,33 +41,40 @@ class Test_005_Receipt:
         self.logger.info("Login successful")
         time.sleep(5)
 
-        # User freeze action
-        self.userfreeze = User(self.driver)
-        self.userfreeze.ClickOnUserTab()
+        # Create banner action
+        self.createbanner = Banners(self.driver)
+        self.createbanner.Clickonfeaturedbannerstab()
         time.sleep(5)
-        self.userfreeze.ClickOnuser()
-        time.sleep(5)
-        self.userfreeze.clickOnOptions()
+        self.createbanner.ClickOnCreatebannerbtn()
+        time.sleep(2)
+        self.createbanner.ClickOnnamefield("test")
         time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
+        self.createbanner.ClickOnFromfield("2024-07-25 00:00")
+        time.sleep(5)
+        self.createbanner.ClickOnTofield("2024-08-25 00:00")
+        time.sleep(5)
+        self.createbanner.ClickOnWieght("1")
+        time.sleep(5)
+        self.createbanner.ClickOnCountrydrpdown()
         time.sleep(4)
-        self.userfreeze.ConfirmPromt()
+        self.createbanner.SelectCountry()
+        time.sleep(3)
+        self.createbanner.ClickOnScope()
+        time.sleep(4)
+        self.createbanner.ClickOnManualreviewScope()
+        body = setup.find_element(By.TAG_NAME, 'body')       # To close the scope menu
+        ActionChains(setup).move_to_element(body).click().perform()
+        time.sleep(3)
+        self.createbanner.ClickOnURI("rabble://settings")
+        time.sleep(3)
+        self.createbanner.ClickImage("https://res.cloudinary.com/rabble-staging/image/upload/v1634549905/coke_product_image_uc6jky.png")
+        time.sleep(2)
+        self.createbanner.ClickOnSave()
         time.sleep(5)
 
-        self.logger.info("User freeze action completed successfully")
 
-        self.driver.refresh()
-        time.sleep(4)
 
-        # Verify Unfreeze action
 
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
-        time.sleep(3)
-        self.userfreeze.ClickOnUnfreezeUserprompt()
-        time.sleep(3)
-        self.logger.info("Unfreezed successful")
 
 
 

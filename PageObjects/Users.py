@@ -18,9 +18,10 @@ class User:
     unfreeze_xpath = "//button[text()='UNFREEZE ACCOUNT']"   #confirm or say yes to Unfreeze user
 
     ##Disable user
-    disableuser_xpath="//ul//li[2]"       ## select disable
+    disableuser_xpath="//span[text()='Disable User']"    ## select disable
     disableconfirmpromt_xpath = "//button[text()='DISABLE ACCOUNT']"   ###confirm or say yes to disable user
-    enableuser_xpath="//button[text()='ENABLE ACCOUNT']"               ###Confiirm promt to Enable user
+    enableconfirmpromt_xpath = "//button[text()='ENABLE ACCOUNT']"               ###Confiirm promt to Enable user
+    enableuser_xpath = "//span[text()='Enable User']"    ## select enable
 
     ##verify User
     verifyuser_xpath ="//ul//li[3]" ##click on verify button
@@ -30,11 +31,13 @@ class User:
     migrateuser_xpath="//ul//li[4]"         ##click on migrate user button
     countrydrpdwn_xpath = "//div[@id='standard-select-currency']"   ##click on arrow to select the dropdown
     selectcountry_xpath= "//li[@data-value='DK']"   #select country  //li[@data-value='SE, Fi, NOK']>> all countries
-    migrateprompt_xpath = "//button[text()='MIGRATE']"  #confirm prompt
-
+    migrateprompt_xpath = "//button[text()='MIGRATE USER']"  #confirm prompt
+    finalconfirm_xpath = "//button[text()='MIGRATE']"
     ##delete user
-    deleteuser_xpath = "//ul//li[5]"    ##select delect button
+    selectUsertodelete_xpath = "//tbody//tr[5]//td[2]"   # select user, here i selected 5th user
+    deleteuser_xpath = "//ul//li[6]"    ##select delect button
     deletecomfirmprompt_xpath = "//button[text()='Delete']"  ##confirm prmt to delete user
+
 
     ## Search users
     search_id = "input-search-header"    ## click on search field
@@ -77,8 +80,11 @@ class User:
     def ClickOnDisableConfirmPrompt(self):
         self.driver.find_element(By.XPATH, self.disableconfirmpromt_xpath).click()
 
-    def ClickOnEnableConfirmPrompt(self):
+    def ClickOnEnableUser(self):
         self.driver.find_element(By.XPATH, self.enableuser_xpath).click()
+
+    def ClickOnEnableConfirmPrompt(self):
+        self.driver.find_element(By.XPATH, self.enableconfirmpromt_xpath).click()
 
     def ClicOnVerifyUser(self):                                # verify user
         self.driver.find_element(By.XPATH, self.verifyuser_xpath).click()
@@ -97,6 +103,12 @@ class User:
 
     def ClickOnMigrateConfirm(self):
         self.driver.find_element(By.XPATH, self.migrateprompt_xpath).click()
+
+    def FinalConfirmPromt(self):
+        self.driver.find_element(By.XPATH, self.finalconfirm_xpath).click()
+
+    def SelectUser(self):
+        self.driver.find_element(By.XPATH,self.selectUsertodelete_xpath).click()
 
     def ClickOnDeleteUser(self):
         self.driver.find_element(By.XPATH, self.deleteuser_xpath).click()

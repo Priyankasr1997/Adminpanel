@@ -13,9 +13,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
 from PageObjects.Users import User
-options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)  # browser will not automatically close
 
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)
 
 
 class Test_005_Receipt:
@@ -24,28 +24,30 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Disableuser(self,setup):
+    def test_Freezeuser(self, setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
+        self.logger.info("Navigating to Login Page")
+        time.sleep(4)
+
+        # Login action
         self.lp = Login(self.driver)
-        time.sleep(5)
         self.lp.setUserName(self.username)
         self.lp.setPassword(self.password)
         self.lp.ClickLogin()
-        self.logger.info("******Login successfully******")
-        time.sleep(6)
-
-        self.userdisable = User(self.driver)
-        self.userdisable.ClickOnUserTab()
-        time.sleep(4)
-        self.userdisable.ClickOnuser()
-        time.sleep(6)
-        self.userdisable.clickOnOptions()
-        time.sleep(3)
-        self.userdisable.ClickOndisableUser()
-        time.sleep(3)
-        self.userdisable.DisableConfirmPrompt()
-        #self.userdisable.EnableConfirmPrompt()
+        self.logger.info("Login successful")
         time.sleep(5)
 
+        # User freeze action
+        self.userdelete = User(self.driver)
+        self.userdelete.ClickOnUserTab()
+        time.sleep(5)
+        self.userdelete.SelectUser()
+        time.sleep(5)
+        self.userdelete.clickOnOptions()
+        time.sleep(3)
+        self.userdelete.ClickOnDeleteUser()
+        time.sleep(5)
+        self.userdelete.ClickOnDeleteconfirmPrompt()
+        time.sleep(6)

@@ -11,20 +11,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from PageObjects.Receipts import Receipt
 from PageObjects.Users import User
+from PageObjects.FeatureBanners import Banners
+from PageObjects.EditBanners import EditBanner
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 
 
-class Test_005_Receipt:
+class Test_005_featuredbanners:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Freezeuser(self, setup):
+    def test_Createbanners(self, setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -39,33 +42,24 @@ class Test_005_Receipt:
         self.logger.info("Login successful")
         time.sleep(5)
 
-        # User freeze action
-        self.userfreeze = User(self.driver)
-        self.userfreeze.ClickOnUserTab()
+        # Edit banner action
+        self.editbanner = EditBanner(self.driver)
+        self.editbanner.Clickonfeaturedbannerstab()
         time.sleep(5)
-        self.userfreeze.ClickOnuser()
-        time.sleep(5)
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
+        self.editbanner.ClickOnBanner()
+        time.sleep(2)
+        self.editbanner.ClickOnEdit()
         time.sleep(4)
-        self.userfreeze.ConfirmPromt()
-        time.sleep(5)
+        Name_element = self.editbanner.ClickOnname("Testing")
+        time.sleep(3)
 
-        self.logger.info("User freeze action completed successfully")
-
-        self.driver.refresh()
+        Edit_From = self.editbanner.ClickOnFrom("2024-08-25 00:00")
+        time.sleep(3)
+        Edit_To = self.editbanner.ClickOnTo("2024-10-29 00:00")
+        time.sleep(3)
+        self.editbanner.ClickOncountry()
+        time.sleep(2)
+        self.editbanner.SelectCountry()
         time.sleep(4)
-
-        # Verify Unfreeze action
-
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
-        time.sleep(3)
-        self.userfreeze.ClickOnUnfreezeUserprompt()
-        time.sleep(3)
-        self.logger.info("Unfreezed successful")
-
-
-
+        Edit_URI = self.editbanner.ClickOnURI("https://www.rabble.se")
+        time.sleep(5)

@@ -12,10 +12,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from PageObjects.Receipts import Receipt
+from selenium.common.exceptions import ElementClickInterceptedException, TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
 from PageObjects.Users import User
-
 options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)
+options.add_experimental_option("detach", True)  # browser will not automatically close
+
 
 
 class Test_005_Receipt:
@@ -24,48 +26,42 @@ class Test_005_Receipt:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Freezeuser(self, setup):
+    def test_Disableuser(self,setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
-        self.logger.info("Navigating to Login Page")
-        time.sleep(4)
+        self.lp = Login(self.driver)
+        time.sleep(5)
 
         # Login action
-        self.lp = Login(self.driver)
+
         self.lp.setUserName(self.username)
         self.lp.setPassword(self.password)
         self.lp.ClickLogin()
-        self.logger.info("Login successful")
-        time.sleep(5)
+        self.logger.info("******Login successfully******")
+        time.sleep(6)
 
-        # User freeze action
-        self.userfreeze = User(self.driver)
-        self.userfreeze.ClickOnUserTab()
-        time.sleep(5)
-        self.userfreeze.ClickOnuser()
-        time.sleep(5)
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
+        # verify disable
+        self.userdisable = User(self.driver)
+        self.userdisable.ClickOnUserTab()
         time.sleep(4)
-        self.userfreeze.ConfirmPromt()
+        self.userdisable.ClickOnuser()
+        time.sleep(6)
+        self.userdisable.clickOnOptions()
+        time.sleep(3)
+        self.userdisable.ClickOndisableUser()
+        time.sleep(3)
+        self.userdisable.ClickOnDisableConfirmPrompt()
+        self.logger.info("******Disabled successfully******")
         time.sleep(5)
 
-        self.logger.info("User freeze action completed successfully")
 
-        self.driver.refresh()
+        # Enable the user
+        self.userdisable.clickOnOptions()
         time.sleep(4)
-
-        # Verify Unfreeze action
-
-        self.userfreeze.clickOnOptions()
-        time.sleep(3)
-        self.userfreeze.ClickOnFreezeUser()
-        time.sleep(3)
-        self.userfreeze.ClickOnUnfreezeUserprompt()
-        time.sleep(3)
-        self.logger.info("Unfreezed successful")
-
+        self.userdisable.ClickOnEnableUser()
+        time.sleep(5)
+        self.userdisable.ClickOnEnableConfirmPrompt()
+        time.sleep(5)
 
 
