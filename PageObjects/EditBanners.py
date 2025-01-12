@@ -4,6 +4,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from PageObjects.FeatureBanners import Banners
 
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -70,6 +71,24 @@ class EditBanner:
         self.driver.find_element(By.XPATH, self.selectcountry_xpath).click()
 
 
+    def ClickOnweight(self, Weight):
+        Edit_weight = self.driver.find_element(By.XPATH, self.Nameinputfield_xpath )
+        Edit_weight.send_keys(Keys.CONTROL + "a")
+        Edit_weight.send_keys(Keys.DELETE)
+        Edit_weight.send_keys(Weight)
+        Edit_weight.click()
+        return Edit_weight
+
+    def ClickOnScopedrpdown(self):
+        self.driver.find_element(By.XPATH, self.scopedropdown_xpath).click()
+
+    def ClickOnManualreviewScope(self):
+        self.driver.find_element(By.XPATH, self.Manualviewscope_xpath).click()
+
+    def ClickOnCashbackscope(self):
+        self.driver.find_element(By.XPATH, self.cashbackscope_xpath).click()
+
+
     def ClickOnURI(self, URI):
         Edit_URI = self.driver.find_element(By.XPATH, self.URIinputfiled_xpath )
         Edit_URI.send_keys(Keys.CONTROL + "a")
@@ -77,4 +96,8 @@ class EditBanner:
         Edit_URI.send_keys(URI)
         Edit_URI.click()
         return Edit_URI
+
+    def ClickOnSave(self):
+        self.driver.find_element(By.XPATH, self.Savebutton_xpath).click()
+
 

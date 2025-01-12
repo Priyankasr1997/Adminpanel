@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from PageObjects.LoginPage import Login
 from PageObjects.CreatOffer import CreateOffer
+from TestCases.dup import driver
 from Utilities.readProperties import RedConfig
 from Utilities.customLogger import LogGen
 from selenium.webdriver.common.by import By
@@ -17,7 +18,6 @@ from PageObjects.Users import User
 from PageObjects.FeatureBanners import Banners
 from PageObjects.EditBanners import EditBanner
 
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 
@@ -28,7 +28,7 @@ class Test_005_featuredbanners:
     password = RedConfig.getPassword()
     logger = LogGen.loggen()
 
-    def test_Createbanners(self, setup):
+    def test_Deletebanners(self, setup):
         self.driver = setup
         self.driver.get(self.webURL)
         self.driver.maximize_window()
@@ -43,35 +43,14 @@ class Test_005_featuredbanners:
         self.logger.info("Login successful")
         time.sleep(5)
 
-        # Edit banner action
-        self.editbanner = EditBanner(self.driver)
-        self.editbanner.Clickonfeaturedbannerstab()
+        # Create banner action
+        self.deletebanner = Banners(self.driver)
+        self.deletebanner.Clickonfeaturedbannerstab()
         time.sleep(5)
-        self.editbanner.ClickOnBanner()
-        time.sleep(2)
-        self.editbanner.ClickOnEdit()
-        time.sleep(4)
-        Name_element = self.editbanner.ClickOnname("Testing")
+        self.deletebanner.ClickOnBanner()
         time.sleep(3)
-
-        Edit_From = self.editbanner.ClickOnFrom("2024-08-25 00:00")
-        time.sleep(3)
-        Edit_To = self.editbanner.ClickOnTo("2024-10-29 00:00")
-        time.sleep(3)
-        self.editbanner.ClickOncountry()
-        time.sleep(2)
-        self.editbanner.SelectCountry()
-        time.sleep(4)
-        Edit_weight = self.editbanner.ClickOnweight("0.9")
-        time.sleep(4)
-        self.editbanner.ClickOnScopedrpdown()
-
-        #self.editbanner.ClickOnManualreviewScope()
-        self.editbanner.ClickOnCashbackscope()
-        body = setup.find_element(By.TAG_NAME, 'body')  # To close the scope menu
-        ActionChains(setup).move_to_element(body).click().perform()
-        Edit_URI = self.editbanner.ClickOnURI("https://www.rabble.se")
+        self.deletebanner.ClickOnDelete()
         time.sleep(5)
-
-        #save
-        self.editbanner.ClickOnSave()
+        self.deletebanner.ClickOnDeleteCnfirmprompt()
+        time.sleep(3)
+        driver.refresh()

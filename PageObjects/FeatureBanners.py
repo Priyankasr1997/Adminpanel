@@ -24,6 +24,8 @@ class Banners:
     Savebutton_xpath = "//button[@type='submit']"
     selectbannerfromlist_xpath = "//tbody//tr[2]//td"    # to select the 2nd record //tbody//tr[3]//td....
     EditButton_xpath = "//button[text()='EDIT']"
+    DeleteButton_xpath = "//button[text()='DELETE']"
+    Deleteprompt_xpath = "//button[text()='Delete']"
 
 
 
@@ -80,6 +82,11 @@ class Banners:
     def ClickOnEdit(self):
         self.driver.find_element(By.XPATH, self.EditButton_xpath).click()
 
+    def ClickOnDelete(self):
+        self.driver.find_element(By.XPATH, self.DeleteButton_xpath).click()
+
+    def ClickOnDeleteCnfirmprompt(self):
+        self.driver.find_element(By.XPATH, self.Deleteprompt_xpath).click()
 
 
 
