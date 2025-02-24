@@ -30,39 +30,20 @@ class Test_003_Editoffer:
         self.lp.setPassword(self.password)
         self.lp.ClickLogin()
         self.logger.info("******Login successfully******")
-        time.sleep(6)
+        time.sleep(10)
 
-
-
-        ##selct the offer from the list
-        ClickOfferInList = setup.find_element(By.XPATH, "//p[normalize-space()='ID: 589']")
-        ClickOfferInList.click()
-        time.sleep(7)
-        ##click on the Edit button
-        EditOffer = setup.find_element(By.XPATH, '//button[.="EDIT OFFER"]')
-        EditOffer.click()
+        self.offer = OfferEdit(self.driver)
+        self.offer.clickOnListOffer()
+        time.sleep(3)
+        self.logger.info("******selected offer******")
+        self.offer.clickOnEditOffer()
         time.sleep(5)
 
         ##edit client company field
-        Client_Company = setup.find_element(By.XPATH, "//input[@placeholder='Client Company']")
-        Client_Company.click()
-        time.sleep(3)
-        Clear_ClientCompany = setup.find_element(By.XPATH, "(//button[@title='Clear'])[1]")
-        Clear_ClientCompany.click()
-        # time.sleep(6)
-        Client_Company.send_keys("Powerfitness")
-        # Client_Company.send_keys("Folkungagatans livs AB")
-        time.sleep(2)
-        Client_Company.send_keys(Keys.ENTER)
-        time.sleep(2)
 
-        ##title
-        self.offer = OfferEdit(self.driver)
-        title_element = self.offer.clickTitle("Reg")
-
-        ###subtitle
-        self.offer = OfferEdit(self.driver)
-        subtitle_element = self.offer.clickSubTitle("test")
+        #subtitle_element = self.driver.find_element(By.NAME, self.txtSubtitle_name)
+        self.offer.clickTitle("Reg")
+        self.offer.clickSubTitle("test")
 
         ##promotional text
         self.offer = OfferEdit(self.driver)
@@ -83,8 +64,8 @@ class Test_003_Editoffer:
         Logo = self.offer.clickOnProductLogo("https://rabble-res.cloudinary.com/image/upload/v1683035655/offer-content/soya-lista.png")
         time.sleep(2)
         ##Image1
-        Image = self.offer.ClickOnImage1("https://res.cloudinary.com/rabble-staging/image/upload/v1634549905/coke_product_image_uc6jky.png")
-
+        #Image = self.offer.ClickOnImage1("https://res.cloudinary.com/rabble-staging/image/upload/v1634549905/coke_product_image_uc6jky.png")
+        #time.sleep(3)
         ##From Date
         Fromdate = self.offer.clickOnFromDate("2024-05-11 15:00")
         time.sleep(2)
@@ -100,11 +81,11 @@ class Test_003_Editoffer:
         totalred = self.offer.clickOnTotalredem("100")
 
         ##unlimiteUserredemption check
-        self.offer.UnlimitedUserredemCheck()
+        #self.offer.UnlimitedUserredemCheck()
         time.sleep(2)
 
         ###single redemption per receipt
-        self.offer.SingleRdptionPerReceipt()
+        self.offer.MultiRdptionPerReceipt()
 
         ###Budget
         budget = self.offer.OfferBudget("20")
@@ -139,10 +120,12 @@ class Test_003_Editoffer:
 
         ####enter line item
         lineitem = self.offer.clickOnReceiptLineItem("Milk")
+        time.sleep(10)
 
 
         #Click on Save
         #self.offer.clickOnSave()
+        time.sleep(5)
 
 
 

@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from PageObjects.LoginPage import Login
 from PageObjects.CreatOffer import CreateOffer
-from TestCases.dup import driver
 from Utilities.readProperties import RedConfig
 from Utilities.customLogger import LogGen
 from selenium.webdriver.common.by import By
@@ -16,7 +15,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from PageObjects.Receipts import Receipt
 from PageObjects.Users import User
 from PageObjects.FeatureBanners import Banners
-from PageObjects.EditBanners import EditBanner
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
@@ -52,5 +50,5 @@ class Test_005_featuredbanners:
         self.deletebanner.ClickOnDelete()
         time.sleep(5)
         self.deletebanner.ClickOnDeleteCnfirmprompt()
-        time.sleep(3)
-        driver.refresh()
+        time.sleep(10)
+        #driver.refresh()

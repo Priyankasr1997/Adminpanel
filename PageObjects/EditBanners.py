@@ -24,7 +24,7 @@ class EditBanner:
     URIinputfiled_xpath = "//input[@name='URI']"
     imageinputfiled_xpath = "//input[@name='image']"
     Savebutton_xpath = "//button[@type='submit']"
-    selectbannerfromlist_xpath = "//tbody//tr[2]//td"  # to select the 2nd record //tbody//tr[3]//td....
+    selectbannerfromlist_xpath = "//tbody//tr[1]//td"  # to select the 2nd record //tbody//tr[3]//td....
     EditButton_xpath = "//button[text()='EDIT']"
 
     def __init__(self, driver):

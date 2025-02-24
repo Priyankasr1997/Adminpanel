@@ -62,11 +62,11 @@ class Test_005_featuredbanners:
         time.sleep(2)
         self.editbanner.SelectCountry()
         time.sleep(4)
-        Edit_weight = self.editbanner.ClickOnweight("0.9")
-        time.sleep(4)
+        #Edit_weight = self.editbanner.ClickOnweight("0.9")
+        #time.sleep(4)
         self.editbanner.ClickOnScopedrpdown()
 
-        #self.editbanner.ClickOnManualreviewScope()
+        self.editbanner.ClickOnManualreviewScope()
         self.editbanner.ClickOnCashbackscope()
         body = setup.find_element(By.TAG_NAME, 'body')  # To close the scope menu
         ActionChains(setup).move_to_element(body).click().perform()

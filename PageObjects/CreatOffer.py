@@ -11,36 +11,37 @@ class CreateOffer:
     btnCreateOffer_xpath = "//button[normalize-space()='CREATE OFFER']"      #"//*[@id='root']/div[6]/main/div/div[1]/div/div/div/div[2]/button"
     autoSearch_Clientcompany_xpath = "//input[@placeholder='Client Company']"
     time.sleep(3)
-    txtTitle_id = "outlined-basic"
+    txtTitle_xpath = "//input[@name='title']"
     txtSubtitle_name = "subtitle"
-    txtPromotional_xpath = "(//textarea[@name='textarea'])[1]"
-    txtTerms_xpath = "(//textarea[@name='textarea'])[2]"
-    txtDescription_xpath = "(//textarea[@name='textarea'])[3]"
+    txtPromotional_xpath = "//textarea[@name='promotionalText']"
+    txtTerms_xpath = "//textarea[@name='terms']"
+    txtDescription_xpath = "//textarea[@name='description']"
     txtTags_xpath = "//input[@id='tags-standard']"
-    txtProduct_Logo_xpath = "//input[@name='logoUrl']"
-    txtProduct_Image1_name = "images_0"
+    txtProduct_Logo_xpath = "//input[@name='logo']"
+    txtProduct_Image1_xpath = "//input[@name='images.0.image']"
     txtFromDate_xpath = "//input[@placeholder='yyyy-mm-dd hh:mm']"
     txtToDate_xpath = "(//input[@placeholder='yyyy-mm-dd hh:mm'])[2]"
-    txtUser_Redemption_xpath = "//input[@name='redemptionPerson']"
-    txtTotal_Redemption_xpath = "//input[@name='redemptionTotal']"
-    chbUser_redemption_name = "//input[@name='redemptionPersonCheckbox']"  ###User unlimited redemption per person
-    rdobtn_multipleredem_perperson = "/input[@name='limitation'][1]"    ##multile redemption per person
-    unlimit_total_redem = " //input[@name='redemptionTotalCheckbox']"       ####total unlimited redemption
-    rdobtn_singleredem_perperson = "//input[@name='limitation'][2]" ###single redemption per persion
+    txtUser_Redemption_xpath = "//input[@name='individualRedemptionLimit']"
+    txtTotal_Redemption_xpath = "//input[@name='totalRedemptionLimit']"
+    unlimitedredemptioncheckbox_perperson_xpath = "(//input[@type='checkbox'])[3]" ###User unlimited redemption per person
+    rdobtn_multipleredem_perperson = "//input[@value='multiple']"    ##multile redemption per person radio button
+    unlimit_total_redem = "(//input[@type='checkbox'])[4]"    ####total unlimited redemption checkbox
+    Hidetotalredemptio_xpath ="(//input[@type='checkbox'])[5]"
+    rdobtn_singleredem_perperson = "//input[@value='single']" ###single redemption per persion
     txtbudget_name = "budget"
-    radiobtnUsereEligible_Multieredem_perReciept = "//input[@name='limitation']"
-    radiobtnUsereEligible_Singleredem_perReciept = "(//input[@name='limitation'])[2]"
+    #radiobtnUsereEligible_Multieredem_perReciept = "//input[@name='limitation']"
+    #radiobtnUsereEligible_Singleredem_perReciept = "(//input[@name='limitation'])[2]"
     txtStores_xpath = "//input[@placeholder='Stores (Brands)']"
-    drpdwnCountry_xpath = "(//div[@id='standard-select-currency'])[1]"
+    drpdwnCountry_xpath = "//div[@id='mui-component-select-country']"
     lsSelect_country = "//li[@data-value='FI']"
-    txtTargeted_group_xpath = "//*[@id='mui-89']"
-    drpoffer_xpath = "//div[@id='standard-select-currency'][2]" ##select dropdown
-    drpofferType_xpath = "//li[@data-value='Volume']"
-    txtCashback_xpath = "//input[@name='offerMechanismCashback']"
-    txtTotal_Minqty_xpath = "//input[@name='minProductQuantity']"
-    txtProductName_xpath = "//input[@name='productName_0']"
-    txtReceipt_LineItem_xpath = "(//input[@type='text'])[16]"
-    btnSave_xpath = "//button[normalize-space()='SAVE']"
+    txtTargeted_group_xpath = "//input[@placeholder='Group']"
+    drpoffer_xpath = "//div[@id='mui-component-select-cashbackOfferKind']" ##select dropdown
+    drpofferType_xpath = "//li[@data-value='Volume']"   #select offer tyepe  ---//li[@data-value='Bundle']
+    txtCashback_xpath = "//input[@name='cashbackValue']"
+    txtTotal_Minqty_xpath = "//input[@name='minTotalProductCount']"
+    txtProductName_xpath = "//input[@name='products.0.productName']"
+    txtReceipt_LineItem_xpath = "//input[@name='products.0.receiptLineItemText.0']"
+    btnSave_xpath = "///button[text()='Save']"
 
     def __init__(self, driver):
         self.driver = driver
@@ -52,7 +53,7 @@ class CreateOffer:
         self.driver.find_element(By.XPATH, self.autoSearch_Clientcompany_xpath).click()
 
     def clickTitle(self, Title):
-        edit_title = self.driver.find_element(By.ID, self.txtTitle_id)
+        edit_title = self.driver.find_element(By.XPATH, self.txtTitle_xpath)
         edit_title.send_keys(Title)
 
     def clickSubTitle(self, Subtitle):
@@ -79,7 +80,7 @@ class CreateOffer:
 
 
     def ClickOnImage1(self, Image1):
-        self.driver.find_element(By.NAME, self.txtProduct_Image1_name).send_keys(Image1)
+        self.driver.find_element(By.XPATH, self.txtProduct_Image1_xpath).send_keys(Image1)
 
     def clickOnFromDate(self, FromDate):
         self.driver.find_element(By.XPATH, self.txtFromDate_xpath).send_keys(FromDate)
@@ -98,13 +99,13 @@ class CreateOffer:
         self.driver.find_element(By.NAME, self.txtbudget_name).send_keys(Budget)
 
     def UserUnlimitedredemCheck(self):
-        self.driver.find_element(By.XPATH, self.chbUser_redemption_name).click()
+        self.driver.find_element(By.XPATH, self.unlimitedredemptioncheckbox_perperson_xpath).click()
 
     def MultiRdptionPerReceipt(self):
-        self.driver.find_element(By.XPATH, self.radiobtnUsereEligible_Multieredem_perReciept).click()
+        self.driver.find_element(By.XPATH, self.rdobtn_multipleredem_perperson).click()
 
     def SingleRdptionPerReceipt(self):
-        self.driver.find_element(By.XPATH, self.radiobtnUsereEligible_Singleredem_perReciept).click()
+        self.driver.find_element(By.XPATH, self.rdobtn_singleredem_perperson).click()
 
     def clickOnStores(self):
         Stores = self.driver.find_element(By.XPATH, self.txtStores_xpath)
@@ -119,12 +120,12 @@ class CreateOffer:
         self.driver.find_element(By.XPATH, self.lsSelect_country).click()
 
     def clickOnGroup(self, Group):
-        self.driver.find_element(By.XPATH, txtTargeted_group_xpath).send_keys(Group)
+        self.driver.find_element(By.XPATH, self.txtTargeted_group_xpath).send_keys(Group)
 
 
-    def clickOnOffer(self, value):
-        drp = Select(self.driver.find_element(By.XPATH, self.drpoffer_xpath)).click()
-        drp.select_by_visible_text(value)
+    def clickOnOffer(self):
+        self.driver.find_element(By.XPATH, self.drpoffer_xpath).click()
+        #drp.select_by_visible_text(value)
 
     def clickOnOfferType(self):
         self.driver.find_element(By.XPATH, self.drpofferType_xpath).click()

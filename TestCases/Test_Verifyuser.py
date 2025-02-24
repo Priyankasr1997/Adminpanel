@@ -43,7 +43,7 @@ class Test_005_Receipt:
         self.userverify.ClickOnUserTab()
         time.sleep(5)
         search = self.userverify.ClickOnSearch()
-        search.send_keys("787016")  # 786359 unverified user
+        search.send_keys("787808")  # 786359 unverified user
         search.send_keys(Keys.ENTER)
 
         # Wait for the table to load and locate all matching records
