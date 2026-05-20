@@ -1,13 +1,15 @@
-import time
-
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from PageObjects.LoginPage import Login
 from Utilities.readProperties import RedConfig
 from Utilities.customLogger import LogGen
 
+
+@pytest.mark.usefixtures("setup")
 class Test_001_Login:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()
@@ -15,34 +17,26 @@ class Test_001_Login:
 
     logger = LogGen.loggen()
 
-    def test_homepageTitle(self, setup):
-        self.logger.info("******Test_001_Login******")
-        self.logger.info("******Verify homepage******")
-        self.driver = setup
-        self.driver.get(self.webURL)
+    @pytest.fixture(scope="class")
+    def setup(self, request):
         options = Options()
         options.add_experimental_option("detach", True)
+        driver = webdriver.Chrome(options=options)
+        driver.get(self.webURL)
+        request.cls.driver = driver
+        yield driver
+        driver.quit()
+
+    def test_homepageTitle(self):
+        self.logger.info("******Test_001_Login******")
+        self.logger.info("******Verify homepage******")
         act_title = self.driver.title
-        if act_title == "Rabble":
-            assert True
-            self.driver.close()
-            self.logger.info("******Home title page is passed******")
-        else:
-            #self.driver.close()
-            assert False
+        assert act_title == "Rabble", f"Expected title 'Rabble' but got '{act_title}'"
+        self.logger.info("******Home title page is passed******")
 
-    def test_login(self, setup):
-            options = Options()
-            options.add_experimental_option("detach", True)
-            self.driver = webdriver.Chrome(options=options)
-            self.driver.get(self.webURL)
-            self.lp = Login(self.driver)
-            time.sleep(5)
-            self.lp.setUserName(self.username)
-            self.lp.setPassword(self.password)
-            self.lp.ClickLogin()
-            self.logger.info("******Login successfully******")
-
-
-
-
+    def test_login(self):
+        self.logger.info("******Starting login test******")
+        lp = Login(self.driver)
+        lp.setUserName(self.username)
+        lp.setPassword(self.password)
+        lp.ClickLogin()

@@ -26,7 +26,7 @@ class Receipt:
 
     ####add offer manually
     Addoffer_xpath = "//button[normalize-space()='ADD OFFER']"
-    Searchoffer_xpath="//button[@aria-label='Open']"##autosearch
+    Searchoffer_xpath="(//input[@role='combobox'])[2]"##autosearch
     Cashback_xpath = "(//div[@data-testid='customInput']//input[@type='number'])[2]"
     Deletereceip_xapth ="//button[.='DELETE RECEIPT']"    ##delete receipt
     Deletepromtcomfirm_xpath= "//button[.='Delete']"     ##alert to confirm the delete a receipt
@@ -78,8 +78,9 @@ class Receipt:
         self.driver.find_element(By.XPATH, self.Addoffer_xpath).click()
 
     def clickOnAutoSearch(self):
-        self.driver.find_element(By.XPATH, self.Searchoffer_xpath).click()
-
+        offer = self.driver.find_element(By.XPATH, self.Searchoffer_xpath)
+        offer.click()
+        return offer
     def clickOnCashbackField(self, Cashback):
         self.driver.find_element(By.XPATH, self.Cashback_xpath).send_keys(Cashback)
 

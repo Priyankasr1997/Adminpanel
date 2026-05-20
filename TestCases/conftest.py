@@ -1,30 +1,54 @@
 from selenium import webdriver
 import pytest
-options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)  # browser will not automatically close
-
-# Browser setup fixture
-@pytest.fixture
-def setup(request, browser):
-    print(f"Setting up the browser: {browser}")
-    if browser == 'chrome':
-        driver = webdriver.Chrome()
-    elif browser == 'firefox':
-        driver = webdriver.Firefox()
-    else:
-        driver = webdriver.Chrome()
-
-    request.cls.driver = driver
-    yield driver
-    driver.quit()
+from PageObjects.LoginPage import Login  # Assuming you have LoginPage for login
+from Utilities.readProperties import RedConfig
 
 # Command-line options for pytest
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome", help="Type of browser. Default is Chrome.")
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def browser(request):
     return request.config.getoption("--browser")
+
+# Session-scoped browser setup (shared across all tests)
+@pytest.fixture(scope="session")
+def setup(browser):
+    print(f"Setting up the browser: {browser}")
+
+    # Browser setup
+    if browser == 'chrome':
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("detach", True)
+        driver = webdriver.Chrome(options=options)
+    elif browser == 'firefox':
+        driver = webdriver.Firefox()
+    else:
+        raise ValueError(f"Unsupported browser: {browser}")
+
+    driver.maximize_window()
+    driver.implicitly_wait(10)
+
+    # Perform login only once
+    perform_login(driver)
+
+    yield driver  # Provide driver to tests
+
+    driver.quit()
+    print("Browser closed after session.")
+
+# Function to handle login logic separately
+def perform_login(driver):
+    webURL = RedConfig.getAppUrl()
+    username = RedConfig.getUseremail()
+    password = RedConfig.getPassword()
+
+    driver.get(webURL)
+    login_page = Login(driver)
+    login_page.setUserName(username)
+    login_page.setPassword(password)
+    login_page.ClickLogin()
+    print("Logged in successfully once for the session.")
 
 # Hook for adding environment info to HTML report
 def pytest_configure(config):
@@ -42,11 +66,3 @@ def pytest_metadata(metadata):
     metadata.pop("JAVA_HOME", None)
     metadata.pop("Plugins", None)
     print("pytest_metadata called, metadata modified.")
-
-# Fixture to keep the browser open after test execution....
-#
-#@pytest.fixture(scope="function", autouse=True)
-#def keep_browser_open():
- #   yield
-  #  input("Press any key to close the browser window...")
-#options.add_experimental_option("detach", True)  # browser will not automatically close

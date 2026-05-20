@@ -52,12 +52,14 @@ class Test_005_Receipt:
         self.addreceipt = Receipt(self.driver)
         self.addreceipt.clickOnAddoffer()
         time.sleep(3)
-        self.addreceipt.clickOnAutoSearch()
+        offer = self.addreceipt.clickOnAutoSearch()
+        offer.send_keys("test")
         time.sleep(5)
+        offer.send_keys(Keys.ENTER)
 
 
-        select_firstoffer = setup.find_element(By.XPATH, "(//li[@role='option'])[1]")    # to select the 2nd offer(//li[@role='option'])[2]
-        select_firstoffer.click()
+        #select_firstoffer = setup.find_element(By.XPATH, "//input[@id='mui-706']")    # to select the 2nd offer(//li[@role='option'])[2]
+        #select_firstoffer.click()
         time.sleep(4)
         self.addreceipt.clickOnCashbackField("5")
         self.addreceipt.clickOnsetstausForAdminOffers()

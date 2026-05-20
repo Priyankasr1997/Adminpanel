@@ -15,7 +15,7 @@ from PageObjects.Receipts import Receipt
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)  # browser will not automatically close
 
-
+@pytest.mark.usefixtures("setup")
 class Test_005_Receiptreview:
     webURL = RedConfig.getAppUrl()
     username = RedConfig.getUseremail()

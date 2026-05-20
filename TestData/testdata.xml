@@ -1,0 +1,16 @@
+<offers>
+    <offer>
+        <title>Reg test</title>
+        <subtitle>RT</subtitle>
+        <promo>Hi</promo>
+        <terms>welcome</terms>
+        <description>Rabble</description>
+        <cashback>10</cashback>
+        <min_qty>2</min_qty>
+        <product>Panettone</product>
+        <receipt>Risotto</receipt>
+        <user_redemption>10</user_redemption>
+        <total_redemption>20</total_redemption>
+        <budget>10</budget>
+    </offer>
+</offers>
